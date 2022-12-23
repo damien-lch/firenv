@@ -1,5 +1,6 @@
 import { useState } from "preact/hooks";
 import Button from "../components/Button.tsx";
+import Modal from "../components/modal.tsx";
 import TextArea from "../components/textarea.tsx";
 import confToEnv from "../helpers/conf-to-env.ts";
 import kebabize from "../helpers/kebabize.ts";
@@ -7,8 +8,9 @@ import kebabize from "../helpers/kebabize.ts";
 export default function MyIsland() {
   const [conf, setConf] = useState("");
   const [cleanConf, setCleanConf] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
-  const test = (conf: string) => {
+  const convert = (conf: string) => {
     //Remove all spaces and backslashes from conf and cut it into an array
     const cleanedString = conf.replace(/\\|\s/g, "").split(",");
     const cleanConf = cleanedString.map((s) => {
@@ -17,7 +19,8 @@ export default function MyIsland() {
         value: s.slice(s.indexOf(":") + 1, s.length),
       };
     });
-    setCleanConf(confToEnv(cleanConf, "VITE_FIREBASE_"));
+    setCleanConf(confToEnv(cleanConf, "FIREBASE_"));
+    setShowModal(true);
   };
 
   const handleChange = (e: any) => {
@@ -26,15 +29,15 @@ export default function MyIsland() {
 
   return (
     <div class="flex flex-col items-center">
-      <TextArea label="Firebase Configuration" onChange={handleChange} />
-      <Button text="Convert 🪄" onClick={() => test(conf)} />
-      <textarea
-        name=""
-        id=""
-        value={cleanConf}
-        class="border(1 black) w-[500px] h-[300px]"
-      >
-      </textarea>
+      <TextArea
+        label="Firebase Configuration"
+        placeholder='apiKey: "xxxxxxx"'
+        onChange={handleChange}
+      />
+      <div class="w-[200px] mt-6">
+        <Button text="Convert" fullwidth onClick={() => convert(conf)} />
+      </div>
+      {showModal && <Modal />}
     </div>
   );
 }
