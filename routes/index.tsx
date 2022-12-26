@@ -1,4 +1,3 @@
-import { Head } from "$fresh/runtime.ts";
 import Converter from "../islands/converter.tsx";
 
 export default function Home() {

@@ -2,7 +2,7 @@ export default function Button(
   { text, fullwidth, onClick }: {
     text: string;
     fullwidth?: boolean;
-    onClick: () => void;
+    onClick?: () => void;
   },
 ) {
   return (

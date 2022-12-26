@@ -1,26 +1,25 @@
 import { useState } from "preact/hooks";
 import Button from "../components/Button.tsx";
+import ModalEnv from "../components/modal-env.tsx";
 import Modal from "../components/modal.tsx";
 import TextArea from "../components/textarea.tsx";
-import confToEnv from "../helpers/conf-to-env.ts";
-import kebabize from "../helpers/kebabize.ts";
+import convertConf from "../helpers/convert-conf.ts";
+import { ConfLine } from "../types.ts";
 
-export default function MyIsland() {
-  const [conf, setConf] = useState("");
-  const [cleanConf, setCleanConf] = useState("");
-  const [showModal, setShowModal] = useState(false);
+export default function Converter() {
+  const [conf, setConf] = useState<string>("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [confObject, setConfObject] = useState<ConfLine[]>([]);
+  const [error, setError] = useState<string>("");
 
   const convert = (conf: string) => {
-    //Remove all spaces and backslashes from conf and cut it into an array
-    const cleanedString = conf.replace(/\\|\s/g, "").split(",");
-    const cleanConf = cleanedString.map((s) => {
-      return {
-        name: kebabize(s.slice(0, s.indexOf(":"))),
-        value: s.slice(s.indexOf(":") + 1, s.length),
-      };
-    });
-    setCleanConf(confToEnv(cleanConf, "FIREBASE_"));
-    setShowModal(true);
+    setError("");
+    try {
+      setConfObject(convertConf(conf));
+      setShowModal(true);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   const handleChange = (e: any) => {
@@ -28,16 +27,21 @@ export default function MyIsland() {
   };
 
   return (
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center gap-6">
       <TextArea
         label="Firebase Configuration"
-        placeholder='apiKey: "xxxxxxx"'
+        placeholder='const firebaseConfig = {&#10;   apiKey: "***", &#10;   authDomain: "****", &#10;    [...], &#10;   appId: "****" &#10;}'
         onChange={handleChange}
       />
-      <div class="w-[200px] mt-6">
+      <div class="w-[200px]">
         <Button text="Convert" fullwidth onClick={() => convert(conf)} />
       </div>
-      {showModal && <Modal />}
+      {error && <span class="text-red-500">{error}</span>}
+      {showModal && (
+        <Modal close={() => setShowModal(false)}>
+          <ModalEnv conf={confObject}></ModalEnv>
+        </Modal>
+      )}
     </div>
   );
 }

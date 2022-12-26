@@ -12,7 +12,7 @@ export default function TextArea(
       <textarea
         name=""
         id=""
-        class="border(1 black) w-[500px] h-[300px] rounded p-4"
+        class="border(2 black) w-[500px] h-[300px] rounded p-4"
         placeholder={placeholder}
         value={value}
         onChange={onChange}

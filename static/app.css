@@ -1,0 +1,8 @@
+#modalEnv {
+    padding: 10px;
+    height: 100%;
+    width: fit-content;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+}
