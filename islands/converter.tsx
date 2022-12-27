@@ -5,6 +5,7 @@ import Modal from "../components/modal.tsx";
 import TextArea from "../components/textarea.tsx";
 import convertConf from "../helpers/convert-conf.ts";
 import { ConfLine } from "../types.ts";
+import IconFlask from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/flask-2.tsx";
 
 export default function Converter() {
   const [conf, setConf] = useState<string>("");
@@ -34,7 +35,12 @@ export default function Converter() {
         onChange={handleChange}
       />
       <div class="w-[200px]">
-        <Button text="Convert" fullwidth onClick={() => convert(conf)} />
+        <Button fullwidth onClick={() => convert(conf)}>
+          <span class="flex items-center justify-center gap-2">
+            <IconFlask class="w-5 h-5" />
+            Convert
+          </span>
+        </Button>
       </div>
       {error && <span class="text-red-500">{error}</span>}
       {showModal && (

@@ -1,7 +1,9 @@
+import { ComponentChildren } from "https://esm.sh/v99/preact@10.11.0/src/index";
+
 export default function Button(
-  { text, fullwidth, onClick }: {
-    text: string;
+  { fullwidth, children, onClick }: {
     fullwidth?: boolean;
+    children: ComponentChildren;
     onClick?: () => void;
   },
 ) {
@@ -11,7 +13,7 @@ export default function Button(
         (fullwidth ? " w-full" : "")}
       onClick={onClick}
     >
-      {text}
+      {children}
     </button>
   );
 }

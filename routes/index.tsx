@@ -2,8 +2,9 @@ export default function Home() {
   return (
     <div class="flex flex-col items-center max-w-xl mx-auto space-y-[100px]">
       <section class="flex flex-col items-center text-center">
-        <h1 class="text-5xl font-black mb-6">
-          Convert your Firebase conf to env variables!
+        <h1 class="text-3xl md:text-5xl font-black mb-6">
+          Convert your <span class="bg-yellow-400 px-1">Firebase</span>{" "}
+          configuration to env variables!
         </h1>
         <p class="max-w-md">
           What a pain to convert a js configuration object to environment
@@ -11,8 +12,12 @@ export default function Home() {
           <br />
           Copy ? Paste ? Convert ? Repeat ? No more !
         </p>
-        <div class="mt-10 bg-yellow-400 rounded-xl h-auto w-full flex items-center justify-center shadow-lg overflow-hidden">
-          <img src="/demo.gif" alt="demo" srcset="" />
+        <div class="mt-10 bg-transparent rounded-xl h-auto w-full flex items-center justify-center shadow-lg overflow-hidden">
+          <img
+            src="/demo.gif"
+            alt="demo"
+            class="max-w-full w-[575px]"
+          />
         </div>
       </section>
       <section class="flex flex-col items-center w-full">
@@ -23,7 +28,11 @@ export default function Home() {
             Go to your Firebase Console &#8594; Your project &#8594; Settings
             &#8594; Your applications.
           </p>
-          <img src="/firebase-conf.png" alt="Your Firebase Configuration" />
+          <img
+            src="/firebase-conf.png"
+            alt="Your Firebase Configuration"
+            class="max-w-full w-[575px] rounded-lg"
+          />
           <h3 class="font-bold">2. Past it to the converter</h3>
           <h3 class="font-bold">3. Put the result inside your .env</h3>
         </div>
