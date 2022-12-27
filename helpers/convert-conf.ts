@@ -1,7 +1,7 @@
 import { ConfLine } from "../types.ts";
 
 export default (conf: string): ConfLine[] => {
-  if (!conf.indexOf("{")) throw new Error("Wrong configuration format");
+  if (conf.indexOf("{") == -1) throw new Error("Wrong configuration format");
   const middle = conf.slice(conf.indexOf("{") + 1, conf.lastIndexOf("}"));
   if (!middle) throw new Error("No configuration found");
   return middle.split(",").map((cl) => {

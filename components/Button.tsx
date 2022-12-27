@@ -7,7 +7,7 @@ export default function Button(
 ) {
   return (
     <button
-      class={"bg-yellow-400 text-black font-medium px-4 py-3 rounded" +
+      class={"bg-yellow-400 rounded px-4 py-3 font-medium hover:bg-yellow-500 duration-300" +
         (fullwidth ? " w-full" : "")}
       onClick={onClick}
     >
