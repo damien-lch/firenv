@@ -25,7 +25,7 @@ export default function App({ Component }: AppProps) {
           <Component />
         </div>
       </main>
-      <footer class="py-6">
+      <footer class="py-6 flex flex-col items-center gap-4">
         <div class="container mx-auto">
           <p class="text-center text-gray-500 text-sm">
             Made with ❤️ by{" "}
@@ -34,6 +34,14 @@ export default function App({ Component }: AppProps) {
             </a>
           </p>
         </div>
+        <a href="https://fresh.deno.dev" target="_blank" rel="noopenner">
+          <img
+            width="197"
+            height="37"
+            src="https://fresh.deno.dev/fresh-badge-dark.svg"
+            alt="Made with Fresh"
+          />
+        </a>
       </footer>
     </div>
   );
