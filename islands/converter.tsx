@@ -1,23 +1,25 @@
 import { useState } from "preact/hooks";
 import Button from "../components/Button.tsx";
+import ModalEnv from "../components/modal-env.tsx";
+import Modal from "../components/modal.tsx";
 import TextArea from "../components/textarea.tsx";
-import confToEnv from "../helpers/conf-to-env.ts";
-import kebabize from "../helpers/kebabize.ts";
+import convertConf from "../helpers/convert-conf.ts";
+import { ConfLine } from "../types.ts";
 
-export default function MyIsland() {
-  const [conf, setConf] = useState("");
-  const [cleanConf, setCleanConf] = useState("");
+export default function Converter() {
+  const [conf, setConf] = useState<string>("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [confObject, setConfObject] = useState<ConfLine[]>([]);
+  const [error, setError] = useState<string>("");
 
-  const test = (conf: string) => {
-    //Remove all spaces and backslashes from conf and cut it into an array
-    const cleanedString = conf.replace(/\\|\s/g, "").split(",");
-    const cleanConf = cleanedString.map((s) => {
-      return {
-        name: kebabize(s.slice(0, s.indexOf(":"))),
-        value: s.slice(s.indexOf(":") + 1, s.length),
-      };
-    });
-    setCleanConf(confToEnv(cleanConf, "VITE_FIREBASE_"));
+  const convert = (conf: string) => {
+    setError("");
+    try {
+      setConfObject(convertConf(conf));
+      setShowModal(true);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   const handleChange = (e: any) => {
@@ -25,16 +27,21 @@ export default function MyIsland() {
   };
 
   return (
-    <div class="flex flex-col items-center">
-      <TextArea label="Firebase Configuration" onChange={handleChange} />
-      <Button text="Convert 🪄" onClick={() => test(conf)} />
-      <textarea
-        name=""
-        id=""
-        value={cleanConf}
-        class="border(1 black) w-[500px] h-[300px]"
-      >
-      </textarea>
+    <div class="flex flex-col items-center gap-6">
+      <TextArea
+        label="Firebase Configuration"
+        placeholder='const firebaseConfig = {&#10;   apiKey: "***", &#10;   authDomain: "****", &#10;    [...], &#10;   appId: "****" &#10;}'
+        onChange={handleChange}
+      />
+      <div class="w-[200px]">
+        <Button text="Convert" fullwidth onClick={() => convert(conf)} />
+      </div>
+      {error && <span class="text-red-500">{error}</span>}
+      {showModal && (
+        <Modal close={() => setShowModal(false)}>
+          <ModalEnv conf={confObject}></ModalEnv>
+        </Modal>
+      )}
     </div>
   );
 }
