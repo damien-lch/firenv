@@ -16,7 +16,7 @@ export default function Modal(props: Props) {
       onClick={handleClose}
     >
       <div
-        class="bg-white w-auto h-[250px] shadow-md rounded absolute top-1/2 left-1/2 -translate-1/2"
+        class="bg-white w-auto h-auto shadow-md rounded absolute top-1/2 left-1/2 -translate-1/2"
         onClick={(e) => e.stopPropagation()}
       >
         {props.children}

@@ -4,7 +4,7 @@ import Navigation from "../components/Navigation.tsx";
 
 export default function App({ Component }: AppProps) {
   return (
-    <div class="bg-[#fafafa] ">
+    <div class="bg-gray-100">
       <Head>
         <link rel="stylesheet" href="/app.css" />
         <title>Firenv</title>
@@ -17,7 +17,7 @@ export default function App({ Component }: AppProps) {
 
       <main class="min-h-screen py-10 pt-[150px]">
         <Navigation />
-        <div class="container mx-auto">
+        <div class="container mx-auto px-2">
           <Component />
         </div>
       </main>
