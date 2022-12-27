@@ -2,8 +2,9 @@ export default function Home() {
   return (
     <div class="flex flex-col items-center max-w-xl mx-auto space-y-[100px]">
       <section class="flex flex-col items-center text-center">
-        <h1 class="text-5xl font-black mb-6">
-          Convert your Firebase conf to env variables!
+        <h1 class="text-3xl md:text-5xl font-black mb-6">
+          Convert your <span class="bg-yellow-400 px-1">Firebase</span>{" "}
+          configuration to env variables!
         </h1>
         <p class="max-w-md">
           What a pain to convert a js configuration object to environment
